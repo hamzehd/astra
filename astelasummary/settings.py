@@ -139,3 +139,8 @@ AUTH_USER_MODEL = "summit.User"
 STATICFILES_DIRS = (os.path.join(os.path.normpath(BASE_DIR), "static"),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# ENV Variables
+OPENAI_API_KEY = env("OPENAPI_KEY")
+MUSIXMATCH_API_KEY = env("MUSIXMATCH_KEY")
