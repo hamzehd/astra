@@ -1,0 +1,31 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+ <div class="container py-5">
+    <div class="row justify-content-center my-5">
+        <div class="col-10">
+            <h2>Login to Music Summary</h2>
+        </div>
+    </div>
+    <form class="login" method="POST" action="{{ request.path }}" autocomplete="off">
+        {% csrf_token %}
+        <div class="row justify-content-center my-5">
+            <div class="col-4">
+                <label for="usernameInput" class="form-label">Username</label>
+                <input name="username" type="text" class="form-control" id="usernameInput" placeholder="Username">
+            </div>
+            <div class="col-4">
+                <label for="passwordInput" class="form-label">Password</label>
+                <input name="password" type="password" class="form-control" id="passwordInput" placeholder="*******">
+            </div>
+        </div>
+        <div class="row justify-content-center my-5">
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Login
+                </button>
+            </div>
+        </div>
+    </form>
+ </div>
+{% endblock %}
