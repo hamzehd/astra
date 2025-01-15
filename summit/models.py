@@ -65,7 +65,7 @@ class Song(TimeMixin):
     gen_summary = models.CharField(max_length=512, verbose_name='Generated Summary')
     countries_mentioned = models.CharField(max_length=512, verbose_name='Countries Mentioned')
     llm_api_request_id = models.CharField(max_length=512, verbose_name='LLM API Request ID')
-    requested_by = models.ForeignKey("summit.User", verbose_name="Requested By", on_delete=models.CASCADE)
+    requested_by = models.ForeignKey("summit.User", verbose_name="Requested By", on_delete=models.CASCADE) # @TODO change this
 
     def __str__(self):
         """Returns a string representation of the song, formatted as 'title by artist'."""

@@ -1,13 +1,20 @@
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth import authenticate, logout, login as auth_login
 from django.contrib.auth.decorators import login_required
 
+from django.views.generic import TemplateView, FormView
 
-def index(request):
-    return render(request, 'homepage.html')
+from django.shortcuts import redirect
+
+from summit.forms import SummarizeForm
+
+
+class HomepageView(TemplateView):
+    template_name = 'homepage.html'
 
 
 def login_view(request):
@@ -25,9 +32,6 @@ def login_view(request):
         HttpResponse: Renders login.html template for GET requests and invalid logins
         HttpResponseRedirect: Redirects to index page on successful login
     """
-    from django.shortcuts import redirect
-    from django.contrib.auth import authenticate, login as auth_login
-    from django.contrib import messages
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -52,3 +56,8 @@ def logout_view(request):
     """
     logout(request)
     return HttpResponseRedirect('/')
+
+
+class SummarizeView(FormView):
+    template_name = 'summarize.html'
+    form_class = SummarizeForm
