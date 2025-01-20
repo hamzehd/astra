@@ -14,7 +14,7 @@ def summarize_song(song: Song):
     
     # Update Song Record
     song.gen_summary = lyrics_response['summary']
-    song.countries_mentioned = ' '.join(lyrics_response['countries']) if lyrics_response['countries'] else 'N/A'
+    song.countries_mentioned = ' - '.join(lyrics_response['countries']) if lyrics_response['countries'] else 'N/A'
     song.llm_api_request_id = lyrics_response['request_id']
     song.save()
     return song
