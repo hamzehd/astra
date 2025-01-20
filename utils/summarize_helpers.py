@@ -1,6 +1,6 @@
 from summit.models import Song
 from utils.musixmatch_client import MusixmatchClient
-from utils.openapi_client import OpenAIClient, analyze_song_lyrics
+from utils.openapi_client import OpenAIClient
 
 
 def summarize_song(song: Song):
