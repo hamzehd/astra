@@ -1,6 +1,6 @@
 from summit.models import Song
 from utils.musixmatch_client import MusixmatchClient
-from utils.openapi_client import analyze_song_lyrics
+from utils.openapi_client import OpenAIClient, analyze_song_lyrics
 
 
 def summarize_song(song: Song):
@@ -9,7 +9,7 @@ def summarize_song(song: Song):
     song_lyrics = musixmatch_client.search_song(song.input_title, song.input_artist)
     
     # Analyze Lyrics through OpenAI GPT
-    lyrics_response = analyze_song_lyrics(song_lyrics)
+    lyrics_response = OpenAIClient().analyze_song_lyrics(song_lyrics)
     # Convert to Python JSON Object
     
     # Update Song Record
