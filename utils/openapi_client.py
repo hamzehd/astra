@@ -5,6 +5,8 @@ from django.conf import settings
 
 
 class OpenAIClient:
+    # This class variable stores the single instance of OpenAIClient
+    # It's initially set to None and will be populated when the first instance is created
     _instance = None
     api_key = settings.OPENAI_API_KEY
 
@@ -24,43 +26,43 @@ class OpenAIClient:
     def get_client(self):
         return self.client
     
-def analyze_song_lyrics(lyrics: str):
-    """
-    Summarizes song lyrics and extracts mentioned countries.
+    def analyze_song_lyrics(self, lyrics: str):
+        """
+        Summarizes song lyrics and extracts mentioned countries.
 
-    Args:
-        lyrics (str): The song lyrics to analyze.
+        Args:
+            lyrics (str): The song lyrics to analyze.
 
-    Returns:
-        dict: A JSON response containing the summary and list of countries mentioned.
-    """
-    prompt = (
-        "You are a helpful assistant. Analyze the following song lyrics, summarize their content, "
-        "and provide a list of countries mentioned in the text.\n\n"
-        "Lyrics:\n" + lyrics + "\n\n"
-        "Respond in the following JSON format:\n"
-        "{\n"
-        "  \"summary\": \"<summary of the song>\",\n"
-        "  \"countries\": [\"<list of countries mentioned>\"]\n"
-        "}"
-    )
-
-    try:
-        # Get the OpenAI client
-        client = OpenAIClient().get_client()
-
-        # Call the ChatCompletion API
-        response = client.chat.completions.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.3,
+        Returns:
+            dict: A JSON response containing the summary and list of countries mentioned.
+        """
+        prompt = (
+            "You are a helpful assistant. Analyze the following song lyrics, summarize their content, "
+            "and provide a list of countries mentioned in the text.\n\n"
+            "Lyrics:\n" + lyrics + "\n\n"
+            "Respond in the following JSON format:\n"
+            "{\n"
+            "  \"summary\": \"<summary of the song>\",\n"
+            "  \"countries\": [\"<list of countries mentioned>\"]\n"
+            "}"
         )
-        # Extract the message content from the response
-        summarized_content = response.choices[0].message.content
-        # Convert the JSON response to Python JSON
-        jsoned_lyrics_response =  json.loads(summarized_content)
-        jsoned_lyrics_response['request_id'] = response.id
 
-        return jsoned_lyrics_response
-    except Exception as e:
-        return {"error": str(e)}
+        try:
+            # Get the OpenAI client
+            client = self.get_client()
+
+            # Call the ChatCompletion API
+            response = client.chat.completions.create(
+                model="gpt-4",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+            )
+            # Extract the message content from the response
+            summarized_content = response.choices[0].message.content
+            # Convert the JSON response to Python JSON
+            jsoned_lyrics_response =  json.loads(summarized_content)
+            jsoned_lyrics_response['request_id'] = response.id
+
+            return jsoned_lyrics_response
+        except Exception as e:
+            return {"error": str(e)}

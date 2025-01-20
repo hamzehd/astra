@@ -11,7 +11,7 @@ Run the following command to install the required packages:
 ### Step 2: Setup your .env File
 
 Run the following command in the main app directory of your project:
-`touch .env`
+`cp ../.sampleenv .env`
 
 ### Step 3: Setup your database
 
