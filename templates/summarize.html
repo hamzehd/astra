@@ -1,0 +1,31 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+ <div class="container py-5">
+    <div class="row justify-content-center my-5">
+        <div class="col-10">
+            <h2>Get a Summary from Song name!</h2>
+        </div>
+    </div>
+    <form class="login" method="POST" action="{{ request.path }}" autocomplete="off">
+        {% csrf_token %}
+        <div class="row justify-content-center my-5">
+            <div class="col-4">
+                <label for="titleInput" class="form-label">Title</label>
+                <input name="title" type="text" class="form-control" id="titleInput" placeholder="Song Title" required>
+            </div>
+            <div class="col-4">
+                <label for="artistInput" class="form-label">Artist</label>
+                <input name="artist" class="form-control" id="artistInput" placeholder="Artist Name" required>
+            </div>
+        </div>
+        <div class="row justify-content-center my-5">
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Summarize!
+                </button>
+            </div>
+        </div>
+    </form>
+ </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+ <div class="container py-5">
+    <div class="row justify-content-center my-5">
+        <div class="col-10">
+            <h2>Summary Inquiry List</h2>
+        </div>
+    </div>
+    
+    {% if object_list %}
+    <div class="row justify-content-center my-5">
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Artist</th>
+                        <th scope="col">Summary</th>
+                        <th scope="col">Countries Mentioned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in object_list %}
+                        <tr>
+                            <th scope="row">{{ song.pk }}</th>
+                            <td>{{ song.input_title }}</td>
+                            <td>{{ song.input_artist }}</td>
+                            <td>{{ song.gen_summary }}</td>
+                            <td>{{ song.countries_mentioned }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+ </div>
+{% endblock %}
